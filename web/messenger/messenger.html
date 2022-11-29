@@ -189,7 +189,13 @@
 			    <a href="#"><i ng-click="clickUploadFile()" id="file-upload" class="fas fa-paperclip mx-2 text-white d-none d-md-block"></i></a>
 			    <input id="upload" type="file" onchange="angular.element(this).scope().onFileSelect(this)"
 							   style="display: none;">
-			    <a href="#"><i ng-click="openPictureRecorder()" id="capture-photo" class="fas fa-camera mx-2 text-white d-none d-md-block"></i></a>
+	    <div class="nav-item dropdown ml-auto m-0 p-0">
+		    <a class="nav-link dropdown-toggle m-0 p-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-camera mx-2 text-white d-none d-md-block"></i></a>
+		    <div class="dropdown-menu dropdown-menu-right">
+			    <a class="dropdown-item" href="#" ng-click="openPictureRecorder()">Picture</a>
+			    <a class="dropdown-item" href="#" ng-click="openVideoRecorder()">Record Video</a>
+		    </div>
+	    </div>
 			    <a href="#"><i ng-click="openAudioRecorder()" id="capture-audio" class="fas fa-microphone mx-2 text-white d-none d-md-block"></i></a>
 			    <a href="#"><i ng-click="deleteMessages()" id="capture-audio" class="fas fa-trash mx-2 text-white d-none d-md-block"></i></a>
 		    </div>
@@ -540,7 +546,7 @@
 	    <div class="container">
 		    <div class="modal fade" id="recorderModal" tabindex="-1" role="dialog" aria-labelledby="recorderModalLabel" aria-hidden="true" >
 			    <div class="modal-dialog" role="document">
-				    <div class="modal-content">
+				    <div class="modal-content" style="width: 680px;">
 					    <div class="modal-header">
 						    <h7 class="modal-title" id="recorderModalLabel">Recorder</h7>
 						    <button type="button" class="close" data-dismiss="modal" ng-click="closeRecorder();" aria-label="Close">

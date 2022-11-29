@@ -1,6 +1,6 @@
 // recorder.js
 
-/** Copyright (c) 2021 Mesibo
+/** Copyright (c) 2022 Mesibo
  * https://mesibo.com
  * All rights reserved.
  *
@@ -65,6 +65,7 @@ function MesiboRecorder(s, type) {
 	this.camera = document.querySelector('.camera');
 	this.photo = document.getElementById('photo_button');
 	this.stream = null;
+	this.videoRecorder = false;
 
 	this.canvasCtx = this.canvas.getContext("2d");
 
@@ -74,6 +75,10 @@ function MesiboRecorder(s, type) {
 		this.audioRecorder();
 	else if(type == 'picture')
 		this.pictureRecorder();
+	else if(type == 'video') {
+		this.pictureRecorder();
+		this.videoRecorder = true;
+	}
 }
 
 MesiboRecorder.prototype.audioRecorder = function(){
@@ -130,7 +135,7 @@ MesiboRecorder.prototype.initPictureRecording = function(){
 	let rCtx = window.rCtx;
 
 	if(!rCtx.stream){
-		navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+		navigator.mediaDevices.getUserMedia({ video: true, audio: this.videoRecorder })
 			.then(function(stream) { 
 				rCtx.stream = stream;     
 				rCtx.video.srcObject = stream;
@@ -148,7 +153,7 @@ MesiboRecorder.prototype.initPictureRecording = function(){
 	// width to the value defined here, but the height will be
 	// calculated based on the aspect ratio of the input stream.
 
-	var width = 320;    // We will scale the photo width to this
+	var width = 640;    // We will scale the photo width to this
 	var height = 0;     // This will be computed based on the input stream
 	height = this.video.videoHeight / (this.video.videoWidth/width);
 
@@ -177,7 +182,14 @@ MesiboRecorder.prototype.initPictureRecording = function(){
 	}, false);
 
 	var photo_button = document.getElementById('photo_button');
-	photo_button.style.display = "inline-block";
+	var record_buttons = document.getElementById('buttons');
+	if(this.videoRecorder) {
+		photo_button.style.display = "none";
+		record_buttons.style.display = "block";
+	} else {
+		photo_button.style.display = "inline-block";
+		record_buttons.style.display = "none";
+	}
 	while (rCtx.camera.lastElementChild) {
 		if(rCtx.camera.lastElementChild.classList.contains('clip'))
 			rCtx.camera.removeChild(rCtx.camera.lastElementChild);

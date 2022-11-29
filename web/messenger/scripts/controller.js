@@ -1142,8 +1142,15 @@ mesiboWeb.controller('AppController', ['$scope', '$window', '$anchorScroll', fun
 
 	$scope.openPictureRecorder = function(){
 		$('#recorderModal').modal("show");
-		document.getElementById("recorderModalLabel").innerHTML = "Video Recorder";
+		document.getElementById("recorderModalLabel").innerHTML = "Send a Picture";
 		$scope.recorder = new MesiboRecorder($scope, "picture");
+		$scope.recorder.initPictureRecording();
+	}
+	
+	$scope.openVideoRecorder = function(){
+		$('#recorderModal').modal("show");
+		document.getElementById("recorderModalLabel").innerHTML = "Video Recorder";
+		$scope.recorder = new MesiboRecorder($scope, "video");
 		$scope.recorder.initPictureRecording();
 	}
 
